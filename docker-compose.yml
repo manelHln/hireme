@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  elasticsearch:
+    image: 'docker.elastic.co/elasticsearch/elasticsearch:7.17.10'
+    environment:
+      - 'ELASTIC_PASSWORD=uhuckjddsj8bhew'
+      - 'discovery.type=single-node'
+      - 'xpack.security.enabled=false'
+    ports:
+      - '9200'
+      - '9300'
+
+  hireme_backend:
+    build:
+      context: ./backend
+    volumes:
+      - backend-data:/usr/app/backend
+    ports:
+      - 8081:8081
+    depends_on:
+      - hireme_db
+
+  hireme_db:
+    image: postgres
+    user: postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=hireme_db
+      - POSTGRES_PASSWORD=oiygydcrtreautgc67r
+      - POSTGRES_USER=postgres
+    ports:
+      - 5432:5432
+
+  hireme_frontend:
+    build:
+      context: ./frontend
+    environment:
+      NODE_ENV: production
+    volumes:
+      - frontend-data:/usr/app/frontend
+    ports:
+      - 5173:5173
+
+volumes:
+  db-data:
+  frontend-data:
+  backend-data:

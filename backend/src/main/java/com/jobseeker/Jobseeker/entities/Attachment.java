@@ -5,19 +5,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
 import lombok.Data;
 
 @Entity
 @Data
-public class CompanyIndustry {
+public abstract class Attachment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "industry_name")
-    private String name;
-
-    @OneToOne(mappedBy = "industry")
-    private Company company;
+    @Column(name = "file_path")
+    private String filePath;
 }

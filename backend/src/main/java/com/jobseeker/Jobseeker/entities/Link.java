@@ -5,19 +5,18 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
 import lombok.Data;
 
 @Entity
 @Data
-public class CompanyIndustry {
+public class Link {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "industry_name")
-    private String name;
+    @Column(name = "link_title")
+    private String title;
 
-    @OneToOne(mappedBy = "industry")
-    private Company company;
+    @Column(name = "url")
+    private String url;
 }

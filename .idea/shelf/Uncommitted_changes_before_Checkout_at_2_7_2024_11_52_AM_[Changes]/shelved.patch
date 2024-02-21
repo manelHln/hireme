@@ -1,0 +1,16 @@
+Index: backend/src/main/java/com/jobseeker/Jobseeker/entities/User.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.jobseeker.Jobseeker.entities;\n\nimport java.time.LocalDate;\nimport java.util.Collection;\nimport java.util.Date;\nimport java.util.List;\n\nimport org.hibernate.annotations.CreationTimestamp;\nimport org.hibernate.annotations.UpdateTimestamp;\nimport org.springframework.security.core.GrantedAuthority;\nimport org.springframework.security.core.authority.SimpleGrantedAuthority;\nimport org.springframework.security.core.userdetails.UserDetails;\n\nimport jakarta.persistence.Column;\nimport jakarta.persistence.Entity;\nimport jakarta.persistence.GeneratedValue;\nimport jakarta.persistence.Id;\nimport jakarta.persistence.Temporal;\nimport jakarta.persistence.TemporalType;\nimport jakarta.persistence.GenerationType;\n\n@Entity\npublic class User implements UserDetails {\n    @Id\n    @GeneratedValue(strategy = GenerationType.AUTO)\n    private Long id;\n\n    @Column(name = \"firstname\")\n    private String firstname;\n\n    @Column(name = \"lastname\")\n    private String lastname;\n\n    @Column(name = \"email\")\n    private String email;\n\n    @Column(name = \"birthdate\")\n    private LocalDate birthdate;\n\n    @Column(name = \"password\")\n    private String password;\n\n    @Column(name = \"phone_number\")\n    private String phoneNumber;\n\n    @Column(name = \"address\")\n    private String address;\n\n    @Column(name = \"created_at\")\n    @Temporal(TemporalType.TIMESTAMP)\n    @CreationTimestamp\n    private Date createdAt;\n\n    @Column(name = \"modified_at\")\n    @Temporal(TemporalType.TIMESTAMP)\n    @UpdateTimestamp\n    private Date modifiedAt;\n\n    @Column(name = \"enabled\")\n    private boolean enabled = false;\n\n    @Override\n    public Collection<? extends GrantedAuthority> getAuthorities() {\n        return List.of(new SimpleGrantedAuthority(\"user\"));\n    }\n\n    @Override\n    public String getPassword() {\n        return this.password;\n    }\n\n    @Override\n    public String getUsername() {\n        return this.email;\n    }\n\n    @Override\n    public boolean isAccountNonExpired() {\n        return this.enabled;\n    }\n\n    @Override\n    public boolean isAccountNonLocked() {\n        return this.enabled;\n    }\n\n    @Override\n    public boolean isCredentialsNonExpired() {\n        return this.enabled;\n    }\n\n    @Override\n    public boolean isEnabled() {\n        return this.enabled;\n    }\n}\n
+===================================================================
+diff --git a/backend/src/main/java/com/jobseeker/Jobseeker/entities/User.java b/backend/src/main/java/com/jobseeker/Jobseeker/entities/User.java
+--- a/backend/src/main/java/com/jobseeker/Jobseeker/entities/User.java	
++++ b/backend/src/main/java/com/jobseeker/Jobseeker/entities/User.java	
+@@ -1,7 +1,6 @@
+ package com.jobseeker.Jobseeker.entities;
+ 
+ import java.time.LocalDate;
+-import java.util.Collection;
+ import java.util.Date;
+ import java.util.List;
+ 
